@@ -25,7 +25,7 @@ function App() {
     <div className='display'>
     <div className='boxes'>
     <NavLink to="/bookmarks" className="tabs"> Bookmarks </NavLink> 
-    <NavLink to="/likedposts"  className="tabs"> Liked Posts </NavLink> 
+    <NavLink to="/likedposts" className="tabs"> Liked Posts </NavLink> 
 
     </div>
     <div >

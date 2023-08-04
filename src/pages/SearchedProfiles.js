@@ -44,10 +44,10 @@ export const SearchedProfiles = () =>{
               
                 <li className='listItem'><b>Content : </b>{post.content}</li>
         <li className='listItem'><img src={post.image} alt={post.upload_date} height ="40%"/></li>
-        
-        {/* <li>Likes : {post.likes}</li>
+        <li>Likes : {post.likes}</li>
         <li>{post.likes > 80 ? "Trending" : "" }</li>
         <li>Posted : {post.upload_date}</li>
+        {/*
         <i class="fa-solid fa-heart" style={{color: state.likedPostsPage?.find(item => item === post) ? "red" : "green"}} onClick={()=> dispatch({type : "addLikes", payload: post })}></i>
         {AddComment(post)}
        

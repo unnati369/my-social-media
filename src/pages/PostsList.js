@@ -81,6 +81,9 @@ function postPopUp(post){
              <li  className='listItem'><b>Name : {post.firstname}{" "}{post.lastname}</b></li></div>
         <li className='listItem'><b>Content : </b>{post.content}</li>
         <li className='listItem'><img src={post.image} alt={post.upload_date} height ="40%"/></li>
+        <li>Likes : {post.likes}</li>
+        <li>{post.likes > 80 ? "Trending" : "" }</li>
+        <li>Posted : {post.upload_date}</li>
         <div className='icons'>
         <i class="fa-solid fa-heart" style={{color: state.likedPostsPage?.find(item => item.id === post.id) ? "red" : ""}} onClick={()=> dispatch({type : "addLikes", payload: post })}></i>
         {AddComment(post)}
