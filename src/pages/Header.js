@@ -51,13 +51,23 @@ export const Header = () =>{
         
     {searchBar()}
     <NavLink to="/usersPosts"><img src="https://cdn-icons-png.flaticon.com/512/668/668290.png" height="50px"  className="icons"/></NavLink>
+    <NavLink to="/bookmarks" > <img className="icons" src="https://cdn-icons-png.flaticon.com/512/148/148883.png" alt="bookmarks" height="50px"/> </NavLink> 
+    <NavLink to="/likedposts" ><img className="icons" src="https://cdn.pixabay.com/photo/2021/03/22/09/34/heart-6114039_1280.png" height="50px" alt="likedPosts"/> </NavLink> 
+<NavLink to="/userprofile"><img src="https://cdn-icons-png.flaticon.com/512/6915/6915987.png" height="50px"  /></NavLink>
 <img src="https://cdn-icons-png.flaticon.com/512/180/180700.png" height="50px" className="icons" onClick={()=>{ setbgColor(bgColor === "light" ? "dark" : "light")
 document.body.className = bgColor
 console.log(bgColor)}  
   
 } />
-<NavLink to="/userprofile"><img src="https://cdn-icons-png.flaticon.com/512/6915/6915987.png" height="50px"  /></NavLink>
 
+<img
+          onClick={() => dispatch({ type: "signOut" })}
+          src="https://www.freeiconspng.com/thumbs/sign-out-icon/sign-out-logout-icon-0.png"
+          alt="logout"
+          height="54px"
+          style={{ marginLeft: "15px" }}
+        />{" "}
+         
         </div>
     )
 }

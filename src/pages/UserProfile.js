@@ -2,9 +2,10 @@ import { useContext } from "react"
 import { PostContext } from "../context/PostContext"
 import React from 'react';
 import Popup from 'reactjs-popup';
+import { NavLink } from "react-router-dom";
 import 'reactjs-popup/dist/index.css';
 import { useLocation, useNavigate} from "react-router"
-
+import { Login } from "./Login";
 export const UserProfile = () =>{
 
     const {state, dispatch} = useContext(PostContext)
@@ -53,7 +54,15 @@ const handleLogin = () => {
                 {AddBio()} 
              <p>{`Portfolio url : ${state.url}`}</p>
                 {AddUrl()}
-                <button className="buttn" onClick={()=>handleLogin()}>{isLoggedIn ? "Logout" : "Login"}</button></div>
+                {state.signedIn ? (
+            <NavLink to="/">
+              <button onClick={() => dispatch({ type: "signOut" })}>
+                Sign Out
+              </button>
+            </NavLink>
+          ) : (
+            <Login />
+          )}</div>
             
             
         </>

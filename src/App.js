@@ -25,11 +25,7 @@ function App() {
 {/* <NavLink to="/">Home</NavLink> */}
     </nav>
     <div className='display'>
-    <div className='boxes'>
-    <NavLink to="/bookmarks" className="tabs"> Bookmarks </NavLink> 
-    <NavLink to="/likedposts" className="tabs"> Liked Posts </NavLink> 
 
-    </div>
     <div >
     <Routes>
       <Route path="/usersPosts" element={<PostsList/>}/>
