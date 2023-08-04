@@ -11,6 +11,8 @@ import { RequiresAuth } from './components/RequiresAuth';
 import {UserProfile} from "./pages/UserProfile"
 import { Home } from './pages/Home';
 import { Header } from './pages/Header';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { UserPage } from "./pages/UserPage"
 function App() {
 
@@ -40,6 +42,19 @@ function App() {
     </Routes>
     </div>
     </div>
+    <ToastContainer
+        // limit={1}
+
+        position="top-right"
+        autoClose={400}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

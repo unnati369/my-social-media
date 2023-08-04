@@ -1,11 +1,25 @@
 import {createContext, useEffect, useReducer, useState } from "react"
 import {v4 as uuid} from "uuid"
 import {Users} from "../components/Users"
+import { useLocation, useNavigate } from "react-router";
+import React from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const PostContext = createContext()
-// import {posts} from "../backend/db/users"
+
 export const PostContextProvider = ({children})=>{
    
 let [allPosts, setAllPosts] = useState([])
+const [loading, setLoading] = useState(false);
+const navigate = useNavigate();
+const location = useLocation();
+
+const loader = () => {
+  setLoading(true);
+  setTimeout(() => {
+    setLoading(false);
+  }, 100);
+};
 const fetchPosts = () =>{
     fetch('/api/posts')
     .then(res=> res.json())
@@ -105,10 +119,54 @@ case "addFollower" : {
     console.log(state.users)
     return {...state, users: state.users?.map(user => user.id === action.payload.id ? ({...user, follow : !user.follow, followers : user.follow ? user.followers-1 : user.followers+1}) : user), followed: state.followed?.find(user => user === action.payload.lastname) ? state.followed?.filter(item => item!== action.payload.lastname ) : [...state.followed, action.payload.lastname]}
 }
+case "signIn": {
+    toast("Signed In");
+    navigate(location?.state?.from?.pathname);
+    return { ...state, signedIn: true };
+  }
+  case "signOut": {
+    toast("Signed Out");
+    return { ...state, signedIn: false };
+  }
+  case "account": {
+    return { ...state, create: !action.payload ? true : false };
+  }
+  case "password": {
+    return {
+      ...state,
+      passwords: action.payload
+    };
+  }
+  case "repassword": {
+    return {
+      ...state,
+      repassword: action.payload
+    };
+  }
+  case "hidePassword": {
+    return {
+      ...state,
+      hidePassword: !state.hidePassword
+    };
+  }
+  case "confirm": {
+    return {
+      ...state,
+      confirm:
+        state.passwords.length > 0 && state.passwords === state.repassword
+    };
+  }
 
     }
 }
-const [state, dispatch] = useReducer(PostsReducer,{sortTrending: false, sortLatest : false, newPost: "", updatedPost: false, likedPost: "", bookmarkedPost: [], likedPostsPage: [], data: "", popUp: false, editPopUp : "", delete:[], edit:"", content: "", avatar: `https://picsum.photos/200/300?random=${Math.random()}`, bio: "No bio added.", inputBio: "", inputUrl:"", url:"No URL added.", newContent : "",  commentedPost:[], users:Users, searchedUsers: [], bgColor: true, followed:[]})
+const [state, dispatch] = useReducer(PostsReducer,{sortTrending: false, sortLatest : false, newPost: "", updatedPost: false, likedPost: "", bookmarkedPost: [], likedPostsPage: [], data: "", popUp: false, editPopUp : "", delete:[], edit:"", content: "", avatar: `https://picsum.photos/200/300?random=${Math.random()}`, bio: "No bio added.", inputBio: "", inputUrl:"", url:"No URL added.", newContent : "",  commentedPost:[], users:Users, searchedUsers: [], bgColor: true, followed:[],signedIn: false,
+email: "",
+password: "", create: true,
+passwords: "",
+repassword: null,
+confirm: false,
+
+hidePassword: true})
 
 
 const updatedPost = state.data === "" ? allPosts : state.data
@@ -132,7 +190,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false)
     return(
         
         <>
-            <PostContext.Provider value={{postListing, setAllPosts, state, dispatch, updatedPost,homePosts, isLoggedIn,setIsLoggedIn,Users,bgColor , setbgColor}}>
+            <PostContext.Provider value={{postListing, setAllPosts, state, dispatch, updatedPost,homePosts, isLoggedIn,setIsLoggedIn,Users,bgColor , setbgColor, loader, loading}}>
                 {children}
             </PostContext.Provider>
         </>
