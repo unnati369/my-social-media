@@ -1,0 +1,55 @@
+.navBar{
+    display: flex;
+    flex-grow: 1;
+    }
+    .navItems {
+      display: flex;
+     
+    }
+    .icons{
+      padding: "15px";
+    }
+    .userPage{
+      display: flex;
+      flex-direction: column;
+      max-width: 20%;
+     margin-left: 45%;
+    }
+    .horizontal{
+      display: flex;
+      padding: 2%;
+      margin: 2%;
+    }
+    .prp{
+      margin: 2%;
+    }
+    .buttn{
+      text-align: center;
+    display: flex;
+    padding: 2%;
+    margin: 4%;
+    align-self: center;
+    width: 80px;
+    border-radius: 15%;
+    align-items: center;
+    justify-content: center;
+    background-color: bisque;
+    }
+    .profilefollow{
+      display: flex;
+     justify-content: center;
+    }
+   .text{
+  margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 3%;
+    background-color: skyblue;
+    padding: 1%;
+    border-radius: 20%
+   }
+   .avataar{
+    border-radius: 10%;
+    margin-bottom: 3%;
+    border: 1px solid black;
+    padding: 2%;
+   }
