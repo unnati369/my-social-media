@@ -18,7 +18,7 @@ const loader = () => {
   setLoading(true);
   setTimeout(() => {
     setLoading(false);
-  }, 100);
+  }, 70);
 };
 const fetchPosts = () =>{
     fetch('/api/posts')
@@ -29,7 +29,7 @@ const fetchPosts = () =>{
 const [ bgColor , setbgColor] = useState("light")
 useEffect(()=>{
     fetchPosts()
-    
+    loader()
    
      }
 
@@ -44,7 +44,7 @@ case "sortByDate" : {
     return {...state, sortLatest : true, sortedTrending: false }
 }
 case "addPost" : {
-    
+    toast("Post Added")
    return {...state, data: [  {
         id: uuid(),
         firstname: "Unnati",
@@ -60,15 +60,17 @@ case "addPost" : {
   
 }
 case "addLikes" : {
-    
+  
     return {...state,  likedPostsPage: state.likedPostsPage?.find(item => item.id === action.payload.id ) ? state.likedPostsPage?.filter(item => item.id !== action.payload.id) : [...state.likedPostsPage, action.payload]}
 }
 case "bookmark":{
     // console.log(state.bookmarkedPost)
+    toast(state.bookmarkedPost?.find(item => item.id === action.payload.id )? "Post removed from bookmarks": "Post Bookmarked")
     return {...state, bookmarkedPost: state.bookmarkedPost?.find(item => item.id === action.payload.id )? state.bookmarkedPost?.filter(item => item.id !== action.payload.id) :[...state.bookmarkedPost, action.payload]}
 }
 
 case "changePost":{
+  toast(action.payload === "delete" ? "Post deleted" : "")
    return {...state, delete: action.payload === "delete" ? [...state.delete, action.post] : state.delete, edit: action.payload === "edit" ? action.post : "", editPopUp :action.payload === "edit" ? action.post : "", post : action.post}
     
 }
@@ -83,18 +85,21 @@ case "discard" :{
     return {...state, editPopUp: false}
 }
 case "getAvatar" : {
+  toast("Profile Avatar Updated")
     return {...state, avatar : `https://picsum.photos/200/300?random=${Math.random()}`}
 }
 case "inputBio":{
     return {...state, inputBio : action.payload}
 }
 case "addBio":{
+  toast("Updated bio")
     return {...state, bio: state.inputBio }
 }
 case "inputUrl":{
     return {...state, inputUrl : action.payload}
 }
 case "updatePortfolioUrl":{
+  toast("Updated portfolio url")
     return {...state, url: state.inputUrl}
 }
 case "newContent":{
@@ -103,6 +108,7 @@ case "newContent":{
 
 case "addComment":{
     // console.log(state.commentedPost)
+    toast("Comment added")
     return {...state, commentedPost: [...state.commentedPost, action.post]}
 }
 case "searchUsers":{
@@ -116,7 +122,9 @@ case "changeColor":{
     return {...state,bgColor : !state.bgColor}
 }
 case "addFollower" : {
-    console.log(state.users)
+    // console.log(state.users)
+    
+    toast(action.isFollowing ? "Unfollowd user" : "Followed user")
     return {...state, users: state.users?.map(user => user.id === action.payload.id ? ({...user, follow : !user.follow, followers : user.follow ? user.followers-1 : user.followers+1}) : user), followed: state.followed?.find(user => user === action.payload.lastname) ? state.followed?.filter(item => item!== action.payload.lastname ) : [...state.followed, action.payload.lastname]}
 }
 case "signIn": {

@@ -10,7 +10,7 @@ import 'reactjs-popup/dist/index.css';
 
 export const PostsList = ()=>{
 
-const {postListing, dispatch, state, updatedPost, setAllPosts} = useContext(PostContext)
+const {postListing, dispatch, state, updatedPost,loader,loading, setAllPosts} = useContext(PostContext)
 // console.log(postListing)
 
 const editPopUp = (post)=> {
@@ -59,9 +59,15 @@ function postPopUp(post){
         </div>
     )
 }
+// loader()
     return(
-
-        <div className='home'>
+        <>
+        {loading ? (
+          <div className="loader-container">
+            <div className="spinner"></div>
+          </div>
+        ) : (
+             <div className='home'>
         <div className='vertical'>
        
        
@@ -98,6 +104,6 @@ function postPopUp(post){
 
      
        </div>
-        </div>
+        </div>)}</>
     )
 }

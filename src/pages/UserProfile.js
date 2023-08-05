@@ -8,12 +8,12 @@ import { useLocation, useNavigate} from "react-router"
 import { Login } from "./Login";
 export const UserProfile = () =>{
 
-    const {state, dispatch} = useContext(PostContext)
+    const {state, dispatch, loading, loader} = useContext(PostContext)
     
  function AddBio() {
 	return (
 		<div>
-			{/* <h4>Add Bio</h4> */}
+		
 			<Popup trigger=
 				{<button > Add Bio </button>}
 				position="right center">
@@ -44,8 +44,15 @@ const handleLogin = () => {
   setIsLoggedIn(!isLoggedIn);
   navigate(location?.state?.from?.pathname);
 };
+// loader()
     return(
-        <>
+      <>
+        {loading ? 
+          (
+            <div className="loader-container">
+              <div className="spinner"></div>
+            </div>
+          ) : (<>
             <div className="userPage">
                 <img src={state.avatar} alt="Avatar" height="180px" className="avataar"/>
                 <button className="buttn" onClick={()=> dispatch({type: "getAvatar"})}>Change Avatar</button>
@@ -65,6 +72,6 @@ const handleLogin = () => {
           )}</div>
             
             
-        </>
+        </>)}</>
     )
 }

@@ -4,7 +4,8 @@ import React from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 export const Bookmarks = () =>{
-const {state, dispatch} = useContext(PostContext) 
+const {state, dispatch, loader, loading} = useContext(PostContext) 
+
 function AddComment(post){
     return(
         <div>
@@ -18,8 +19,17 @@ function AddComment(post){
         </div>
     )
 }
+
     return(
         <>
+ 
+       {
+        loading ? (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      ) :  (
+      <>
         <h1>{state.bookmarkedPost.length === 0 ? "No bookmarks" : "Bookmarks"}</h1>
 {
     state.bookmarkedPost.map(post =><ul className='postlist'>
@@ -43,5 +53,6 @@ function AddComment(post){
 }
 
         </>
+        )}</>
     )
 }

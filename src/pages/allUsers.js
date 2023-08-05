@@ -10,7 +10,7 @@ export const SuggestedUsers = () =>{
      state.users?.map(user =>
      <div className="user">
      <li>{`${user.firstname} ${user.lastname }`}</li>
-    <button className="followBtn" onClick={()=> dispatch({type:"addFollower", payload:user}) } style={{color: user.follow ?"#475569": "blue" }}>{user.follow ? "Unfollow" : "Follow"}</button>
+    <button className="followBtn" onClick={()=> dispatch({type:"addFollower", payload:user, isFollowing : user.follow}) } style={{color: user.follow ?"#475569": "blue" }}>{user.follow ? "Unfollow" : "Follow"}</button>
    
      </div>
    

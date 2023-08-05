@@ -4,7 +4,7 @@ import 'reactjs-popup/dist/index.css';
 import { PostContext } from '../context/PostContext';
 import { SuggestedUsers } from "./allUsers";
 export const Home = () =>{
-    const {state, dispatch, setAllPosts,updatedPost, homePosts} = useContext(PostContext)
+    const {state, dispatch,loading,loader, setAllPosts,updatedPost, homePosts} = useContext(PostContext)
     
     function createPost (){
         return(
@@ -66,7 +66,15 @@ export const Home = () =>{
             </div>
         )
     }
+    // loader()
     return(
+        <>
+        {loading ? (
+          <div className="loader-container">
+            <div className="spinner"></div>
+          </div>
+        ) : (
+          
         <div className='home'>
             <div className='vertical'>
             <div className="newBlock">
@@ -115,5 +123,8 @@ export const Home = () =>{
 </div>
 </div>
 </div>
-    )
-}
+  
+      )}
+    </>
+  );
+};
