@@ -33,7 +33,9 @@ export const SearchedProfiles = () =>{
                     /></li>
                     <li><h2>{userItem.firstname}{" "}{userItem.lastname}</h2></li>
                     <li><p>{`@${userItem.username}`}</p></li>
-                    <button className="followBtn" onClick={()=> dispatch({type:"addFollower", payload:userItem}) } style={{color: userItem.follow ?"#475569": "blue" }}>{userItem.follow ? "Unfollow" : "Follow"}</button>
+                    <button className="followBtn" onClick={()=> {dispatch({type:"addFollower", payload:userItem, isFollowing : userItem.follow})
+                    // console.log(userItem.follow)
+                    } } style={{color: userItem.follow ?"#475569": "blue" }}>{userItem.follow ? "Unfollow" : "Follow"}</button>
                     <div className="prp">
                         <b className="profilefollow"><li className="text">Following : {userItem.following}</li>
                         <li className="text"> Followers : {userItem.followers}</li></b>

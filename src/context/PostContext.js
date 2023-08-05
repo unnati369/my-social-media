@@ -70,19 +70,25 @@ case "bookmark":{
 }
 
 case "changePost":{
-  toast(action.payload === "delete" ? "Post deleted" : "")
-   return {...state, delete: action.payload === "delete" ? [...state.delete, action.post] : state.delete, edit: action.payload === "edit" ? action.post : "", editPopUp :action.payload === "edit" ? action.post : "", post : action.post}
+  toast(action.payload === "delete" && "Post deleted" )
+   return {...state, delete: action.payload === "delete" ? [...state.delete, action.post] : state.delete, 
+  data: action.payload === "edit" ? (allPosts?.map(post => post.id == action.post.id ? ({...post, edit : true}) : ({...post, edit: false}))) : state.data
+  }
     
 }
 
 case "getContentToEdit":{
-    return {...state, content:action.payload}
+    return {...state,content:action.payload}
 }
-case "changeContent":{
-    return {...state, edit: state.content === "" ? "" : state.content, editPopUp: false}
+case "addNewContent":{
+  toast(state.content.length > 0 && "Post Content Updated")
+  return {...state, data: allPosts?.map(post => post.id == action.post.id ? ({...post, edit: false, content : state.content.length > 0 ? state.content : post.content }) : post)}
 }
+// case "changeContent":{
+//     return {...state, edit: state.add ? state.content : action.payload, editPopUp: false}
+// }
 case "discard" :{
-    return {...state, editPopUp: false}
+    return {...state, data: allPosts?.map(post => ({...post, edit : false}))}
 }
 case "getAvatar" : {
   toast("Profile Avatar Updated")
@@ -122,9 +128,9 @@ case "changeColor":{
     return {...state,bgColor : !state.bgColor}
 }
 case "addFollower" : {
-    // console.log(state.users)
+    // console.log(action.isFollowing)
     
-    toast(action.isFollowing ? "Unfollowd user" : "Followed user")
+    toast(action.isFollowing ? "Unfollowed user" : "Followed user")
     return {...state, users: state.users?.map(user => user.id === action.payload.id ? ({...user, follow : !user.follow, followers : user.follow ? user.followers-1 : user.followers+1}) : user), followed: state.followed?.find(user => user === action.payload.lastname) ? state.followed?.filter(item => item!== action.payload.lastname ) : [...state.followed, action.payload.lastname]}
 }
 case "signIn": {
@@ -173,7 +179,7 @@ password: "", create: true,
 passwords: "",
 repassword: null,
 confirm: false,
-
+add: false,
 hidePassword: true})
 
 

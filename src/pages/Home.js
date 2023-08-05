@@ -10,25 +10,32 @@ export const Home = () =>{
         return(
             <div >
                 <Popup trigger={ <button className='input'>What's on your mind </button>}
-                position="right center"     >
-                <div className='popUp'>
+                position="right center" modal nested    >
+                {close => (<div className='popUp'>
                 <input placeholder="Write your thoughts here." onChange={(e)=> dispatch({type:"newContent", payload:e.target.value})} className='input' />
     <button onClick={()=>{ 
+     
                 setAllPosts(updatedPost)
-                dispatch({type: "addPost"})}} className='btn'>Create Post</button>
+                dispatch({type: "addPost"})
+                close()
+                }} className='btn'>Create Post</button>
                 </div>
-  
+  )}
                 </Popup>
             </div>
         )
     }
     const editPopUp = (post)=> {
         return (
+            <div>
+
+
             <div className='editPop'>
                 <h4>Edit Post</h4>
                 <input onChange={(e)=>dispatch({type:"getContentToEdit",payload : e.target.value})}/>
-              
+              <button  className='followBtn' onClick={()=> dispatch({type:"addNewContent", post : post})}>Add</button>
                 <button className='followBtn' onClick={()=> dispatch({type:"discard"})}>Close</button>
+            </div>
             </div>
         )
     };
@@ -37,9 +44,11 @@ export const Home = () =>{
         return(
             <div>
                 <Popup trigger={<i class="fa-solid fa-comment" >{post.comments}</i>}
-               position="left top">
-    <input  />
-    <button onClick={()=> dispatch({type:"addComment", post: post})}>Add Comment</button>
+               position="left top" modal nested>
+   {close => ( <><input  />
+    <button onClick={()=>{ dispatch({type:"addComment", post: post})
+    close()
+    }}>Add Comment</button></>)}
     
                 </Popup>
                 
@@ -49,11 +58,11 @@ export const Home = () =>{
     function postPopUp(post){
         return(
             <div>
-                <Popup trigger={<i class="fa-solid fa-ellipsis"></i>}>
-              { homePosts.map(item => item.id === post.id ? <select value={post} onChange={(e)=>{
+                <Popup trigger={<i class="fa-solid fa-ellipsis"></i>} modal nested>
+              { close =>(homePosts.map(item => item.id === post.id ? <select value={post} onChange={(e)=>{
      
      dispatch({type: "changePost", payload: e.target.value, post: post})
-    
+    close()
      }}>
      <option>Select an option :</option>
      <option value="delete" 
@@ -61,7 +70,7 @@ export const Home = () =>{
        
      <option value="edit" >Edit</option>
 
- </select> : "" ) }
+ </select> : "" ) )}
                 </Popup>
             </div>
         )
@@ -94,8 +103,8 @@ export const Home = () =>{
             <>
         
             {post.username === "You" && postPopUp(post)}
-             
-                { state.editPopUp.id === post.id &&  editPopUp(post)}
+             {post.edit}
+                { post.edit &&  editPopUp(post)}
             </>
             <li style={{marginLeft:"5%"}} className='listItem'><b>Name : {post.firstname}{" "}{post.lastname}</b></li></div>
         <li className='listItem'><b>Content : </b>{post.content}</li>
